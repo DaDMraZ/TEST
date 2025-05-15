@@ -1,0 +1,145 @@
+
+#include "TXLib.h"
+
+    txSetColor(TX_WHITE);
+    txSetFillColor(TX_TRANSPARENT);
+    txRectangle(850, 20, 1040, 50); //íîìåð âîïðîñ
+    txRectangle(280, 40, 800, 110);  // âîïðîñ
+    txRectangle(50, 150, 340, 400);// êàðòèíêà 1
+    txRectangle(370, 150, 680, 400);//êàðòèíêà 2
+    txRectangle(700, 150, 980, 400);//êàðòèíêà 3
+    txRectangle(50, 420, 340, 470);// îòâåò 1
+    txRectangle(370, 420, 680, 470);//îòâåò 2
+    txRectangle(700, 420, 980, 470);//îòâåò 3
+
+
+
+struct Forma
+{
+  string question;
+  HDC picture_answer1; 
+  HDC picture_answer2;
+  HDC picture_answer3;
+  string text_answer1;
+  string text_answer2;
+  string text_answer3;
+
+
+ void draw()
+ {
+ 
+
+
+    txDrawText (280, 40, 800, 110, "Êàêîé áîñc ïðèçûâàåòñÿ òîëüêî íî÷üþ");// ÂÎÏÐÎÑ
+
+    txBitBlt(txDC(), 50, 150, 340, 400, kingS);  //  ÊÀÐÒÈÍÊÀ 1
+    txBitBlt(txDC(), 370, 150, 680, 400, kingP); //ÊÀÐÒÈÍÊÀ 2
+    txBitBlt(txDC(), 370, 150, 680, 400, glas);  //ÊÀÐÒÈÍÊÀ 3
+
+    txDrawText (50, 420, 340, 470, "Êîðîëü ñëèçíåé");  // ÎÒÂÅÒ 1
+    txDrawText (370, 420, 680, 470, "Êîðîëåâà ï÷¸ë");    //ÎÒÂÅÒ 2
+    txDrawText (700, 420, 980, 470, "Ãëàç Êòóëõó");   //ÎÒÂÅÒ 3
+ 
+ }
+
+};
+
+
+
+bool click(int x)
+{
+ return( txMouseButtons()==1 &&
+        txMouseX()> x && txMouseX()<x+300 &&
+        txMouseY()>510 && txMouseY()<570 );
+
+
+
+
+
+}
+
+
+
+
+
+
+int main()
+    {
+    txCreateWindow (1101, 528);
+    txTextCursor (false);
+
+     Forma forma1{"Êàêîé áîñc ïðèçûâàåòñÿ òîëüêî íî÷üþ",
+                   txLoadImage("ÊÀÐÒÈÍÊÈ/kingS.bmb"),
+                   txLoadImage("ÊÀÐÒÈÍÊÈ/kingP.bmb"),
+    };             txLoadImage("ÊÀÐÒÈÍÊÈ/Glas.bmb"),
+    
+    HDC kingS = txLoadImage("ÊÀÐÒÈÍÊÈ/kingS.bmb");
+    HDC kingP = txLoadImage("ÊÀÐÒÈÍÊÈ/kingP.bmb");
+    HDC glas = txLoadImage("ÊÀÐÒÈÍÊÈ/GlasP.bmb");
+
+   int n_question = 1;
+   int count_question = 2;
+ 
+ 
+  while(n_question <= count_question)
+  {
+
+    txSetFillColor(TX_BLACK);
+    //txClean();
+    txBegin();
+
+
+
+
+
+    txSetColor (TX_LIGHTGREEN);
+    txSelectFont ("Times", 40);
+    txSetTextAlign (TA_CENTER);
+
+
+   
+
+  if(n_question==1)
+  {
+   ' txDrawText (850, 20, 1040, 50, "Âîïðîñ¹1");'   //ÍÎÌÅÐ
+
+    txDrawText (280, 40, 800, 110, "Êàêîé áîñc ïðèçûâàåòñÿ òîëüêî íî÷üþ");// ÂÎÏÐÎÑ
+
+    txBitBlt(txDC(), 50, 150, 340, 400, kingS);  //  ÊÀÐÒÈÍÊÀ 1
+    txBitBlt(txDC(), 370, 150, 680, 400, kingP); //ÊÀÐÒÈÍÊÀ 2
+    txBitBlt(txDC(), 370, 150, 680, 400, glas);  //ÊÀÐÒÈÍÊÀ 3
+
+    txDrawText (50, 420, 340, 470, "Êîðîëü ñëèçíåé");  // ÎÒÂÅÒ 1
+    txDrawText (370, 420, 680, 470, "Êîðîëåâà ï÷¸ë");    //ÎÒÂÅÒ 2
+    txDrawText (700, 420, 980, 470, "Ãëàç Êòóëõó");   //ÎÒÂÅÒ 3
+   }
+
+    if(click(50))
+       {
+        while(MouseButtons()==1) txSleep(50);
+        n_question ++;
+       }
+
+  if(click(370))
+       {
+        while(MouseButtons()==1) txSleep(370);
+        n_question ++;
+       }
+
+  if(click(700))
+       {
+        while(MouseButtons()==1) txSleep(700);
+        n_question ++;
+       }
+
+
+
+
+   txEnd();
+   txSleep(20);
+
+      }
+
+    return 0;
+    }
+
